@@ -15,7 +15,7 @@ const Register = () => {
 
 
     // Password Error Start
-    const [passwordErrorState, setPasswordErrorState] = useState('Please Set Password');
+    const [ErrorState, setErrorState] = useState('Please Set Password');
     // Password Error End
 
 
@@ -31,19 +31,19 @@ const Register = () => {
 
 
         if (password.length < 5) {
-            setPasswordErrorState("Password Must be 6 Character!")
+            setErrorState("Password Must be 6 Character!")
             return;
         }
 
 
 
         if (!/[A-Z] *[A-Z]/.test(password)) {
-            setPasswordErrorState("Please provide at Least Two upper case!");
+            setErrorState("Please provide at Least Two upper case!");
             return;
         }
 
         if (!/[!#%^*@]/.test(password)) {
-            setPasswordErrorState("Please Provide at least one Special Character");
+            setErrorState("Please Provide at least one Special Character");
             return;
         }
 
@@ -54,11 +54,12 @@ const Register = () => {
             .then(user => {
                 setUser(user);
                 console.log(user);
+                setErrorState("Successful!");
             })
-            .catch(error => console.log(error));
+            .catch(error => setErrorState(error.message));
 
 
-        setPasswordErrorState("Successful!");
+        
         
 
 
@@ -75,7 +76,7 @@ const Register = () => {
                 <br />
                 <input required style={{ marginTop: '5px' }} name='password' type="text" placeholder='Password' />
                 <br />
-                <p>{passwordErrorState}</p>
+                <p>{ErrorState}</p>
                 <button style={{ marginTop: '5px' }} type='submit'>Register</button>
 
             </form>

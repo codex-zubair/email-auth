@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
-import React from 'react';
+import React, { useState } from 'react';
 import { app } from '../../Firebase/Firebase.config';
 
 const Register = () => {
@@ -9,13 +9,38 @@ const Register = () => {
 
 
 
+    // Password Error Start
+    const [passwordErrorState, setPasswordErrorState] = useState('Please Set Password');
+    // Password Error End
+
+
+
 
     const submitForm = (event) => {
         event.preventDefault();
 
 
+
         const email = event.target.email.value;
         const password = event.target.password.value;
+
+        
+        if (password.length < 5) {
+            setPasswordErrorState("Password Must be 6 Character!")
+            return;
+        }
+
+
+
+        if (!/[A-Z] *[A-Z]/.test(password)) {
+            setPasswordErrorState("Please provide at Least Two upper case!");
+            return;
+        }
+
+        if (!/[!#%^*@]/.test(password)) {
+            setPasswordErrorState("Please Provide at least one Special Character");
+            return;
+        }
 
 
 
@@ -23,6 +48,9 @@ const Register = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then(user => console.log(user))
             .catch(error => console.log(error));
+
+
+        setPasswordErrorState("Successful!")
 
     }
     return (
@@ -32,11 +60,12 @@ const Register = () => {
             </h1>
 
             <form onSubmit={submitForm}>
-                <input type="text" name='email' placeholder='Email' />
+                <input required type="text" name='email' placeholder='Email' />
                 <br />
-                <input style={{ marginTop: '5px' }} name='password' type="text" placeholder='Password' />
+                <input required style={{ marginTop: '5px' }} name='password' type="text" placeholder='Password' />
                 <br />
-                <button style={{ marginTop: '5px' }} type='submit'>Submit</button>
+                <p>{passwordErrorState}</p>
+                <button style={{ marginTop: '5px' }} type='submit'>Register</button>
 
             </form>
         </div>

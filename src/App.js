@@ -16,13 +16,14 @@ function App() {
     path:'/' , element:<Main></Main>, children: [
 
       {
-        path:'/' ,element: <Register></Register>
+        path:'/', element:<Register></Register>
       }
     ]
   }
   ]);
 
    
+  return (
 
     <div className='App'>
 

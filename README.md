@@ -1,8 +1,8 @@
-### Email Authentication With Firebase
+# Email Authentication With Firebase
 
 ### Step 1:
 
-# Simple Form for taking User Password from user.
+Simple Form for taking User Password from user.
 ### Step 2:
 
 Validation Check With Regular Expression

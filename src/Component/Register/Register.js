@@ -28,6 +28,7 @@ const Register = () => {
 
         const email = event.target.email.value;
         const password = event.target.password.value;
+        const form = event.target;
 
 
         if (password.length < 5) {
@@ -55,6 +56,7 @@ const Register = () => {
                 setUser(user);
                 console.log(user);
                 setErrorState("Successful!");
+                form.reset();
             })
             .catch(error => setErrorState(error.message));
 

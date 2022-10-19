@@ -1,5 +1,6 @@
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { app } from '../../Firebase/Firebase.config';
 
 const Register = () => {
@@ -8,9 +9,9 @@ const Register = () => {
     // Authentication Setup End
 
 
-    //Firebase User State Set start
-    const [loginUser, setLoginUser] = useState({});
-    //Firebase User State Set End
+    const navigate = useNavigate();
+
+
 
 
 
@@ -18,6 +19,7 @@ const Register = () => {
     const [ErrorState, setErrorState] = useState('Please Set Password');
     //  Error End
 
+    const [currentUser, setCurrentUser] = useState();
 
 
 
@@ -38,7 +40,7 @@ const Register = () => {
 
 
 
-        if (!/[A-Z] *[A-Z]/.test(password)) {
+        if (!/[A-Z]/.test(password)) {
             setErrorState("Please provide at Least Two upper case!");
             return;
         }
@@ -49,14 +51,26 @@ const Register = () => {
         }
 
 
+        const userVerify = ()=> {
+
+                sendEmailVerification(auth.currentUser)
+                .then(result=> console.log("Check Email!"))
+                .catch(error=> console.log(error))
+
+        }
+
+
 
         // Creating User with Email and password
         createUserWithEmailAndPassword(auth, email, password)
-            .then((result) => {
-                setLoginUser(result.user);
-                setErrorState("User Created Successful!");
+            .then(() => {
+                setErrorState("Please Check Your Email!");
                 form.reset();
-                console.log(loginUser);
+                userVerify();
+                setTimeout(()=> {
+                    navigate('/');
+                },2000)
+                
             })
             .catch(error => setErrorState(error.message));
 

@@ -30,8 +30,6 @@ const Login = () => {
         .then(result => console.log(result))
         .catch(error => setError(error.message));
          
- 
-
 
     }
 
@@ -46,7 +44,7 @@ const Login = () => {
 
                 <div>
                     <Link to='/'>Login</Link>
-                    <Link to='/'>Sign Out</Link>
+                    <Link>Sign Out</Link>
                 </div>
             </div>
 

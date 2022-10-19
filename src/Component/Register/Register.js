@@ -9,7 +9,7 @@ const Register = () => {
 
 
     //Firebase User State Set start
-    const [user, setUser] = useState({});
+    const [loginUser, setLoginUser] = useState({});
     //Firebase User State Set End
 
 
@@ -52,13 +52,17 @@ const Register = () => {
 
         // Creating User with Email and password
         createUserWithEmailAndPassword(auth, email, password)
-            .then(user => {
-                setUser(user);
-                console.log(user);
-                setErrorState("Successful!");
+            .then((result) => {
+                setLoginUser(result.user);
+                setErrorState("User Created Successful!");
                 form.reset();
+                console.log(loginUser);
             })
             .catch(error => setErrorState(error.message));
+
+
+
+            
 
 
         

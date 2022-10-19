@@ -8,6 +8,11 @@ const Register = () => {
     // Authentication Setup End
 
 
+    //Firebase User State Set start
+    const [user, setUser] = useState({});
+    //Firebase User State Set End
+
+
 
     // Password Error Start
     const [passwordErrorState, setPasswordErrorState] = useState('Please Set Password');
@@ -24,7 +29,7 @@ const Register = () => {
         const email = event.target.email.value;
         const password = event.target.password.value;
 
-        
+
         if (password.length < 5) {
             setPasswordErrorState("Password Must be 6 Character!")
             return;
@@ -46,11 +51,17 @@ const Register = () => {
 
         // Creating User with Email and password
         createUserWithEmailAndPassword(auth, email, password)
-            .then(user => console.log(user))
+            .then(user => {
+                setUser(user);
+                console.log(user);
+            })
             .catch(error => console.log(error));
 
 
-        setPasswordErrorState("Successful!")
+        setPasswordErrorState("Successful!");
+        
+
+
 
     }
     return (

@@ -14,9 +14,9 @@ const Register = () => {
 
 
 
-    // Password Error Start
+    //  Error Start
     const [ErrorState, setErrorState] = useState('Please Set Password');
-    // Password Error End
+    //  Error End
 
 
 

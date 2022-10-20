@@ -1,4 +1,4 @@
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, sendPasswordResetEmail, signInWithEmailAndPassword } from 'firebase/auth';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { app } from '../../Firebase/Firebase.config';
@@ -34,6 +34,19 @@ const Login = () => {
     }
 
 
+    // Reset password
+    const resetPassword = ()=> {
+
+        const email = prompt("Your Email");
+    
+
+        sendPasswordResetEmail(auth,email)
+        .then(result  => alert("Please Check your Email!"))
+        .catch(error => console.log(error));
+
+    }
+
+
 
     return (
 
@@ -58,6 +71,7 @@ const Login = () => {
                 <button style={{ marginTop: '5px' }} type='submit'>Login</button>
 
                 <p>New to this site: <Link to='/register'>Register</Link></p>
+                <Link onClick={resetPassword}>Forgot Password</Link> 
             </form>
 
         </div>
